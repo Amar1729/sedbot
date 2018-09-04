@@ -9,8 +9,6 @@ do
     offset=$((1+$(echo ${update} | jq -r ".update_id")))
     text=$(echo ${update} | jq -r ".message.text")
     username=$(echo ${update} | jq -r ".message.from.username")
-    echo "${update}"
-    echo
     if [[ "${text}" == /sed* ]] && [[ "${username}" != stream_editor_bot ]]; then
       sed_cmd="${text#* }"
       reply_to_message_text=$(echo ${update} | jq -r ".message.reply_to_message.text")
@@ -31,8 +29,6 @@ do
       json="{\"chat_id\" : ${chat_id}, \"text\" : \"${message_text}\" }"
 
       curl -X POST -H "Content-Type: application/json" -d "${json}" "https://api.telegram.org/bot${TOKEN}/sendMessage"
-      echo
-      echo
     fi
   done
 done
