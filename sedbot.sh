@@ -12,7 +12,7 @@ do
     echo "${update}"
     echo
     if [[ "${text}" == /sed* ]] && [[ "${username}" != stream_editor_bot ]]; then
-      sed_cmd="${text:5}"
+      sed_cmd="${text#* }"
       reply_to_message_text=$(echo ${update} | jq -r ".message.reply_to_message.text")
       sed_result=$(echo "${reply_to_message_text}" | sed --posix "${sed_cmd}" 2>&1)
       sed_return_code=$?
